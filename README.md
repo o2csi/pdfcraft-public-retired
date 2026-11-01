@@ -29,12 +29,12 @@ Use the Rust version and pinned tools declared in the workflow. Web builds need 
 Build in a clean disposable checkout so the version transformation does not alter a contribution branch:
 
 ```sh
-cargo xtask version set 0.15.1
-export PDFCRAFT_VERSION=0.15.1 PDFCRAFT_BUILD_LABEL=o2csi.1
+cargo xtask version set 0.16.2
+export PDFCRAFT_VERSION=0.16.2 PDFCRAFT_BUILD_LABEL=o2csi.1
 packaging/web/package.sh
 python3 packaging/o2csi_distribution.py stamp --platform web \
-  --version 0.15.1 --commit "$(git rev-parse HEAD)" \
-  --archive dist/release/pdfcraft-web-0.15.1.zip
+  --version 0.16.2 --commit "$(git rev-parse HEAD)" \
+  --archive dist/release/pdfcraft-web-0.16.2.zip
 ```
 
 On Windows, after the same version transformation and with `PDFCRAFT_BUILD_LABEL=o2csi.1` set:
@@ -42,8 +42,8 @@ On Windows, after the same version transformation and with `PDFCRAFT_BUILD_LABEL
 ```powershell
 ./packaging/windows/package.ps1 -Arch x64 -PortableOnly
 python packaging/o2csi_distribution.py stamp --platform windows-x64 `
-  --version 0.15.1 --commit (git rev-parse HEAD) `
-  --archive dist/release/pdfcraft-0.15.1-windows-x64-portable.zip
+  --version 0.16.2 --commit (git rev-parse HEAD) `
+  --archive dist/release/pdfcraft-0.16.2-windows-x64-portable.zip
 ```
 
 The portable archive includes the application, CLI, OCR models, font notices and `portable.txt`. It does not install an MSI or reuse the official installer's registration/upgrade identity. Unless a separate O2CSI signing configuration is supplied, these Windows binaries are unsigned. The default packaging script invocation still builds the upstream MSI and portable ZIP; the O2CSI workflow deliberately uses `-PortableOnly`.
