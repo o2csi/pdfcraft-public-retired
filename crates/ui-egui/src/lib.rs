@@ -75,13 +75,16 @@ use canvas::autoscroll;
 use canvas::crop;
 use canvas::fling;
 use canvas::image_pick;
+use canvas::page_cursor;
 use canvas::page_pointer;
+use canvas::page_router;
 pub use canvas::scroll_speed;
 use canvas::signature_drag;
 use canvas::wheel_boost;
 use canvas::wheel_pager;
 use canvas::zoom_snap;
 use dialogs::appearance;
+pub use dialogs::bookmark_styles_ui;
 use dialogs::comment_props;
 use dialogs::credits;
 use dialogs::marks_ui;
@@ -303,6 +306,8 @@ pub struct PdfCraftApp {
     pub flatten_fill_sign_on_save: bool,
     /// Point size for new Fill & Sign text and dates, kept across launches.
     pub fill_text_size: f64,
+    /// Colour for new Fill & Sign text and dates, kept across launches.
+    pub fill_text_color: [f64; 3],
     pub dialog: Option<Dialog>,
     /// Lists the Print dialog's printers in the background (the desktop app sets it; see
     /// [`PrinterSource`]).
@@ -562,6 +567,8 @@ pub struct PdfCraftApp {
     fonts_cjk: theme::CjkPreference,
     /// The window title last sent to the platform.
     pub window_title: String,
+    /// The web page's title last set: the window title, but always with the file's name.
+    pub page_title: String,
     /// The UI control channel, when enabled (`--control`; off by default).
     control: Option<control::Control>,
     /// A bookmark being renamed in the Bookmarks panel: (path, text so far).
@@ -571,10 +578,14 @@ pub struct PdfCraftApp {
     pub(crate) word_count_draft: word_count_ui::Draft,
     /// Protect Using Password dialog state.
     pub protect_draft: protect::ProtectDraft,
+    /// New bookmarks from text styles dialog state (#1693).
+    pub text_style_draft: bookmark_styles_ui::TextStyleDraft,
     /// Set Page Boxes dialog state.
     pub boxes_draft: pageboxes::BoxesDraft,
     /// Header & footer / watermark / background dialog state.
     pub marks_draft: marks_ui::MarksDraft,
+    /// The Update dialogs' preview page without the marks they replace.
+    pub(crate) unmarked_page: marks_ui::UnmarkedPage,
     /// Export dialog settings.
     pub export_draft: export_ui::ExportDraft,
     /// A running export's progress.

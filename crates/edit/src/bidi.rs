@@ -54,6 +54,8 @@ fn is_mark(c: char) -> bool {
 }
 
 /// BMP variation selectors supported by the nominal-glyph fallback.
+/// Supplementary selectors U+E0100..U+E01EF are outside this fallback's scope; existing CID
+/// fonts that encode them keep their own encoding path.
 pub(crate) fn is_variation_selector(c: char) -> bool {
     matches!(c, '\u{FE00}'..='\u{FE0F}')
 }

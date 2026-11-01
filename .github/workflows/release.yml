@@ -7,7 +7,7 @@ on:
         description: "New O2CSI package version (major.minor.patch; never reuse a published version)"
         type: string
         required: true
-        default: "0.15.1"
+        default: "0.16.2"
       draft_release_id:
         description: "Numeric ID of a manually created draft: tag vVERSION and target equal to this full commit SHA"
         type: string
